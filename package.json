@@ -1,0 +1,9 @@
+{
+	"name":"list-dispenser",
+	"description":"Retrieves records in batched amounts from a directory containing lists.",
+	"version":"1.33.7",
+	"private":true,
+	"dependencies":{
+		"commander":"latest"
+	}
+}
