@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var Program = require("commander");
-var ListDispenser = require("classes/ListDispenser.js");
+var ListDispenser = require("./classes/ListDispenser.js");
 
 function additionalHelp(){
 	console.log("Additional help...");
@@ -17,9 +17,10 @@ Program
 	.command("dispense [path]")
 	.description("Retrieves records in batched amounts from a directory containing lists.")
 	.option("-o, --output_path <path>", "Output Path")
+	.option("-c, --count <integer>", "Number of Records to Retrieve!", parseInt)
 	//.option("-i, --input_path <path>", "Input Path")
 	.action(function(inputPath, options){
-		ListDispenser.dispense(inputPath);
+		ListDispenser.dispense(inputPath, options.output_path, options.count);
 	});
 
 Program
