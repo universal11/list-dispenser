@@ -4,13 +4,13 @@ function ListDispenser(){
 
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
-	console.log("Dispensing from:" + inputPath);
+	console.log("Dispensing from: " + inputPath);
 	var FileSystem = require("fs");
 	FileSystem.readdir(inputPath, function(error, files){
 		console.log("Files: " + files);
 		var numberOfFiles = files.length;
+		var retrievedLineCount = 0;
 		for(var i=0; i < numberOfFiles; i++){
-			var retrievedLineCount = 0;
 			var file = files[i];
 			console.log("Reading: " + file);
 			var data = FileSystem.readFileSync(inputPath + "/" + file);
@@ -19,12 +19,12 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				var dataLines = data.toString().split("\n");
 				var numberOfDataLines = dataLines.length;
 				var dispenserLines = new Array();
-				for(var i=0; i < numberOfDataLines; i++){
+				for(var j=0; j < numberOfDataLines; j++){
 					var dataLine = dataLines[i];
 					if(retrievedLineCount < count && dataLine != ""){
 						//console.log(dataLine);
 						dispenserLines.push(dataLine);
-						delete dataLines[i];
+						delete dataLines[j];
 						retrievedLineCount++
 					}
 				}
