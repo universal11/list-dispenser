@@ -35,12 +35,14 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				if(!outputPathExists){
 					FileSystem.mkdirSync(outputPath);
 				}
-				FileSystem.writeFile(inputPath + "/" + file, dataLines.join("\n"), function(error){
-					console.log(inputPath + "/" + file + " written!");
-				});
 				FileSystem.writeFile(outputPath + "/" + file, dataLines.join("\n"), function(error){
 					console.log(outputPath + "/" + file + " written!");
 				});
+				
+				FileSystem.writeFile(inputPath + "/" + file, dataLines.join("\n"), function(error){
+					console.log(outputPath + "/" + file + " written!");
+				});
+				
 				
 			}
 
