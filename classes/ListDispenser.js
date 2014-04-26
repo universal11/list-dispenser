@@ -20,7 +20,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				var numberOfDataLines = dataLines.length;
 				var dispenserLines = new Array();
 				for(var j=0; j < numberOfDataLines; j++){
-					var dataLine = dataLines[i];
+					var dataLine = dataLines[j];
 					if(retrievedLineCount < count && dataLine != ""){
 						//console.log(dataLine);
 						dispenserLines.push(dataLine);
