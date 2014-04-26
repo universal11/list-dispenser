@@ -22,7 +22,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				for(var i=0; i < numberOfDataLines; i++){
 					var dataLine = dataLines[i];
 					if(retrievedLineCount < count && dataLine != ""){
-						console.log(dataLine);
+						//console.log(dataLine);
 						dispenserLines.push(dataLine);
 						delete dataLines[i];
 						retrievedLineCount++
