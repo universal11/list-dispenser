@@ -13,6 +13,8 @@ ListDispenser.writeLists = function(inputData, inputPath, outputData, outputPath
 	});
 }
 
+
+
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
 	console.log("Dispensing from: " + inputPath);
@@ -44,18 +46,12 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				});
 				//console.log("Remaining:");
 				//console.log(dataLines.join("\n"));
-				if(retrievedLineCount > 0){
-					var outputPathExists = FileSystem.existsSync(outputPath);
-					if(!outputPathExists){
-						FileSystem.mkdirSync(outputPath);
-					}
+				var outputPathExists = FileSystem.existsSync(outputPath);
+				if(!outputPathExists){
+					FileSystem.mkdirSync(outputPath);
+				}
 
-					ListDispenser.writeLists(dataLines.join("\n"), inputPath + "/" + file, dispenserLines.join("\n"), outputPath + "/" + file);
-				}
-				else{
-					console.log("Pool is empty!");
-				}
-				
+				ListDispenser.writeLists(dataLines.join("\n"), inputPath + "/" + file, dispenserLines.join("\n"), outputPath + "/" + file);
 				/*
 				FileSystem.writeFile(outputPath + "/" + file, dispenserLines.join("\n"), function(error){
 					console.log(outputPath + "/" + file + " written - lines: " + dispenserLines.length );
@@ -70,6 +66,16 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 
 
 
+		}
+		if(retrievedLineCount == 0){
+			console.log("Pool Empty!");
+			FileSystem.rmdir(outputPath, function(error){
+				if(error){
+					throw error;
+				}
+
+				console.log(outputPath + " removed.");
+			});
 		}
 	});
 }
