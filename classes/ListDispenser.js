@@ -3,6 +3,7 @@ function ListDispenser(){
 }
 
 ListDispenser.writeLists = function(inputData, inputPath, outputData, outputPath){
+	var FileSystem = require("fs");
 	FileSystem.writeFile(outputPath, outputData, function(error){
 		console.log(outputPath + " written.");
 	});
