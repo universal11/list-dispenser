@@ -62,9 +62,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 		if(retrievedLineCount == 0){
 			console.log("Pool Empty!");
 		}
-		else{
-			console.log("Created: " + outputPath);
-		}
+		console.log("Created: " + outputPath);
 	});
 }
 
