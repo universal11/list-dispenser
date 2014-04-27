@@ -20,7 +20,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 	console.log("Dispensing from: " + inputPath);
 	var FileSystem = require("fs");
 	FileSystem.readdir(inputPath, function(error, files){
-		console.log("Files: " + files);
+		console.log("Lists: " + files);
 		var numberOfFiles = files.length;
 		var retrievedLineCount = 0;
 
@@ -31,7 +31,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 
 		for(var i=0; i < numberOfFiles; i++){
 			var file = files[i];
-			console.log("Reading: " + file);
+			//console.log("Reading: " + file);
 			var data = FileSystem.readFileSync(inputPath + "/" + file);
 			if(data){
 
@@ -64,6 +64,9 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 			FileSystem.rmdir(outputPath, function(error){
 				console.log(outputPath + " removed.");
 			});
+		}
+		else{
+			console.log("Created: " + outputPath);
 		}
 	});
 }
