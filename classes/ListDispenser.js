@@ -44,12 +44,18 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				});
 				//console.log("Remaining:");
 				//console.log(dataLines.join("\n"));
-				var outputPathExists = FileSystem.existsSync(outputPath);
-				if(!outputPathExists){
-					FileSystem.mkdirSync(outputPath);
-				}
+				if(retrievedLineCount > 0){
+					var outputPathExists = FileSystem.existsSync(outputPath);
+					if(!outputPathExists){
+						FileSystem.mkdirSync(outputPath);
+					}
 
-				ListDispenser.writeLists(dataLines.join("\n"), inputPath + "/" + file, dispenserLines.join("\n"), outputPath + "/" + file);
+					ListDispenser.writeLists(dataLines.join("\n"), inputPath + "/" + file, dispenserLines.join("\n"), outputPath + "/" + file);
+				}
+				else{
+					console.log("Pool is empty!");
+				}
+				
 				/*
 				FileSystem.writeFile(outputPath + "/" + file, dispenserLines.join("\n"), function(error){
 					console.log(outputPath + "/" + file + " written - lines: " + dispenserLines.length );
