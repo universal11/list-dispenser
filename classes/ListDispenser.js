@@ -2,6 +2,16 @@ function ListDispenser(){
 
 }
 
+ListDispenser.writeLists = function(inputData, inputPath, outputData, outputPath){
+	FileSystem.writeFile(outputPath, outputData, function(error){
+		console.log(outputPath + " written.");
+	});
+
+	FileSystem.writeFile(inputPath, inputData, function(error){
+		console.log(inputPath + " written.");
+	});
+}
+
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
 	console.log("Dispensing from: " + inputPath);
@@ -37,6 +47,9 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				if(!outputPathExists){
 					FileSystem.mkdirSync(outputPath);
 				}
+
+				ListDispenser.writeLists(inputPath + "/" + file, dataLines.join("\n"), outputPath + "/" + file, dispenserLines.join("\n"));
+				/*
 				FileSystem.writeFile(outputPath + "/" + file, dispenserLines.join("\n"), function(error){
 					console.log(outputPath + "/" + file + " written - lines: " + dispenserLines.length );
 				});
@@ -44,7 +57,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				FileSystem.writeFile(inputPath + "/" + file, dataLines.join("\n"), function(error){
 					console.log(outputPath + "/" + file + " written!");
 				});
-				
+				*/
 				
 			}
 
