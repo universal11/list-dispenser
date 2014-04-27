@@ -49,7 +49,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 					FileSystem.mkdirSync(outputPath);
 				}
 
-				ListDispenser.writeLists(inputPath + "/" + file, dataLines.join("\n"), outputPath + "/" + file, dispenserLines.join("\n"));
+				ListDispenser.writeLists(dataLines.join("\n"), inputPath + "/" + file, dispenserLines.join("\n"), outputPath + "/" + file);
 				/*
 				FileSystem.writeFile(outputPath + "/" + file, dispenserLines.join("\n"), function(error){
 					console.log(outputPath + "/" + file + " written - lines: " + dispenserLines.length );
