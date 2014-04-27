@@ -62,6 +62,9 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 		if(retrievedLineCount == 0){
 			console.log("Pool Empty!");
 			FileSystem.rmdir(outputPath, function(error){
+				if(error){
+					console.log(error);
+				}
 				console.log(outputPath + " removed.");
 			});
 		}
