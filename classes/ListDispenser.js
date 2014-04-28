@@ -41,7 +41,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				for(var j=0; j < numberOfDataLines; j++){
 					var dataLine = dataLines[j];
 					if(retrievedLineCount < count){
-						if(dataLine && dataLine != "" && dataLine != null && dataLine != undefined && dataLine.length > 0){
+						if(dataLine && dataLine != "" && dataLine != null && dataLine != undefined && dataLine.length > 0 && dataLine != "\r"){
 							dispenserLines.push(dataLine);
 							delete dataLines[j];
 							retrievedLineCount++
