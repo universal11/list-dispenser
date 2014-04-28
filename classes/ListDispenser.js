@@ -47,6 +47,7 @@ ListDispenser.dispenseHandler = function(data, remaining){
 
 ListDispenser.listHandler = function(inputPath, outputPath, file, remaining){
 	//console.log("Reading: " + file);
+	var FileSystem = require("fs");
 	var data = FileSystem.readFileSync(inputPath + "/" + file);
 	if(data){
 		var result = ListDispenser.dispenseHandler(data, remaining);
