@@ -60,6 +60,7 @@ ListDispenser.listHandler = function(inputPath, outputPath, file, remaining){
 
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
+	var startCount = count;
 	console.log("Dispensing from: " + inputPath);
 	var FileSystem = require("fs");
 	FileSystem.readdir(inputPath, function(error, files){
@@ -75,7 +76,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 			var file = files[i];
 			count = ListDispenser.listHandler(inputPath, outputPath, file, count);
 		}
-		if(count == 0){
+		if(startCount == count){
 			console.log("Pool Empty!");
 		}
 		console.log("Created: " + outputPath);
