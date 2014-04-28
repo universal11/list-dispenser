@@ -31,7 +31,7 @@ ListDispenser.dispenseHandler = function(data, remaining){
 			if(ListDispenser.isValidLine(dataLine)){
 				dispenserLines.push(dataLine);
 				delete dataLines[j];
-				remaining--
+				remaining--;
 			}
 		}
 	}
