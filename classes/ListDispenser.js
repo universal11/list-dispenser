@@ -20,6 +20,30 @@ ListDispenser.isValidLine = function(line){
 	return false;
 }
 
+ListDispenser.dispenseHandler = function(data, remaining){
+	var dataLines = data.toString().split("\n");
+	var numberOfDataLines = dataLines.length;
+	var dispenserLines = new Array();
+	for(var j=0; j < numberOfDataLines; j++){
+		var dataLine = dataLines[j];
+		if(remaining > 0){
+			if(ListDispenser.isValidLine(dataLine)){
+				dispenserLines.push(dataLine);
+				delete dataLines[j];
+				remaining--
+			}
+		}
+	}
+	dataLines = dataLines.filter(function(result){
+		return (result !== undefined && result != null);
+	});
+	return {
+		dataLines:dataLines,
+		dispenserLines:dispenserLines,
+		remaining:remaining
+	};
+}
+
 
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
@@ -28,7 +52,6 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 	FileSystem.readdir(inputPath, function(error, files){
 		console.log("Lists: " + files);
 		var numberOfFiles = files.length;
-		var retrievedLineCount = 0;
 
 		var outputPathExists = FileSystem.existsSync(outputPath);
 		if(!outputPathExists){
@@ -40,34 +63,13 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 			//console.log("Reading: " + file);
 			var data = FileSystem.readFileSync(inputPath + "/" + file);
 			if(data){
-
-				var dataLines = data.toString().split("\n");
-				var numberOfDataLines = dataLines.length;
-				var dispenserLines = new Array();
-				for(var j=0; j < numberOfDataLines; j++){
-					var dataLine = dataLines[j];
-					if(retrievedLineCount < count){
-						if(ListDispenser.isValidLine(dataLine)){
-							dispenserLines.push(dataLine);
-							delete dataLines[j];
-							retrievedLineCount++
-						}
-					}
-				}
-				dataLines = dataLines.filter(function(result){
-					return (result !== undefined && result != null);
-				});
-
-				
-
-				ListDispenser.writeLists(dataLines.join("\n"), inputPath + "/" + file, dispenserLines.join("\n"), outputPath + "/" + file);
+				var result = ListDispenser.dispenseHandler(data, count);
+				ListDispenser.writeLists(result.dataLines.join("\n"), inputPath + "/" + file, result.dispenserLines.join("\n"), outputPath + "/" + file);
+				count = result.remaining;
 				
 			}
-
-
-
 		}
-		if(retrievedLineCount == 0){
+		if(count == 0){
 			console.log("Pool Empty!");
 		}
 		console.log("Created: " + outputPath);
