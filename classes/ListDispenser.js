@@ -13,6 +13,12 @@ ListDispenser.writeLists = function(inputData, inputPath, outputData, outputPath
 	});
 }
 
+ListDispenser.isValidLine = function(line){
+	if(line && line != "" && line != null && line != undefined && line.length > 0 && line != "\r"){
+		return true;
+	}
+	return false;
+}
 
 
 ListDispenser.dispense = function(inputPath, outputPath, count){
@@ -41,7 +47,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				for(var j=0; j < numberOfDataLines; j++){
 					var dataLine = dataLines[j];
 					if(retrievedLineCount < count){
-						if(dataLine && dataLine != "" && dataLine != null && dataLine != undefined && dataLine.length > 0 && dataLine != "\r"){
+						if(ListDispenser.isValidLine(dataLine)){
 							dispenserLines.push(dataLine);
 							delete dataLines[j];
 							retrievedLineCount++
