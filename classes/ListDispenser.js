@@ -40,10 +40,12 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 				var dispenserLines = new Array();
 				for(var j=0; j < numberOfDataLines; j++){
 					var dataLine = dataLines[j];
-					if(retrievedLineCount < count && dataLine != ""){
-						dispenserLines.push(dataLine);
-						delete dataLines[j];
-						retrievedLineCount++
+					if(retrievedLineCount < count){
+						if(dataLine != "" && dataLine != null && dataLine != undefined){
+							dispenserLines.push(dataLine);
+							delete dataLines[j];
+							retrievedLineCount++
+						}
 					}
 				}
 				dataLines = dataLines.filter(function(result){
