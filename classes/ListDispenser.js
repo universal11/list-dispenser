@@ -45,8 +45,20 @@ ListDispenser.dispenseHandler = function(data, remaining){
 }
 
 
+ListDispenser.listHandler = function(inputPath, outputPath, file, remaining){
+	//console.log("Reading: " + file);
+	var data = FileSystem.readFileSync(inputPath + "/" + file);
+	if(data){
+		var result = ListDispenser.dispenseHandler(data, remaining);
+		ListDispenser.writeLists(result.dataLines.join("\n"), inputPath + "/" + file, result.dispenserLines.join("\n"), outputPath + "/" + file);
+		remaining = result.remaining;	
+	}
+	return remaining;
+}
+
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
+	var startCount = count;
 	console.log("Dispensing from: " + inputPath);
 	var FileSystem = require("fs");
 	FileSystem.readdir(inputPath, function(error, files){
@@ -60,16 +72,9 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 
 		for(var i=0; i < numberOfFiles; i++){
 			var file = files[i];
-			//console.log("Reading: " + file);
-			var data = FileSystem.readFileSync(inputPath + "/" + file);
-			if(data){
-				var result = ListDispenser.dispenseHandler(data, count);
-				ListDispenser.writeLists(result.dataLines.join("\n"), inputPath + "/" + file, result.dispenserLines.join("\n"), outputPath + "/" + file);
-				count = result.remaining;
-				
-			}
+			count = ListDispenser.listHandler(inputPath, outputPath, file, count);
 		}
-		if(count == 0){
+		if(startCount == count){
 			console.log("Pool Empty!");
 		}
 		console.log("Created: " + outputPath);
