@@ -14,6 +14,7 @@ ListDispenser.writeLists = function(inputData, inputPath, outputData, outputPath
 }
 
 ListDispenser.isValidLine = function(line){
+	line = line.trim();
 	if(line && line != "" && line != null && line != undefined && line.length > 0 && line != "\r"){
 		return true;
 	}
@@ -59,7 +60,6 @@ ListDispenser.listHandler = function(inputPath, outputPath, file, remaining){
 
 ListDispenser.dispense = function(inputPath, outputPath, count){
 	//var lists = ListDispenser.getLists(inputPath);
-	var startCount = count;
 	console.log("Dispensing from: " + inputPath);
 	var FileSystem = require("fs");
 	FileSystem.readdir(inputPath, function(error, files){
@@ -75,7 +75,7 @@ ListDispenser.dispense = function(inputPath, outputPath, count){
 			var file = files[i];
 			count = ListDispenser.listHandler(inputPath, outputPath, file, count);
 		}
-		if(startCount == count){
+		if(count == 0){
 			console.log("Pool Empty!");
 		}
 		console.log("Created: " + outputPath);
